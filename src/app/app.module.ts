@@ -29,15 +29,16 @@ import {dataServiceFactory} from './core/data.service.factory';
     FormsModule
   ],
   providers:
-      [
-      //PlainLoggerService,
-      //{ provide: LoggerService, useClass: PlainLoggerService},
-        // { provide: LoggerService, useExisting: PlainLoggerService},
-        {provide: LoggerService, useValue: {
+      [ LoggerService, DataService
+      /*PlainLoggerService,
+      { provide: LoggerService, useClass: PlainLoggerService},
+      { provide: LoggerService, useExisting: PlainLoggerService},
+      {provide: LoggerService, useValue: {
           log: (message: string) => console.log(`MESSAGE ${message}`),
             error: (message: string) => console.log(`PROBLEM ${message}`)
           }},
-        {provide: DataService, useFactory: dataServiceFactory, deps: [LoggerService] }
+        {provide: DataService, useFactory: dataServiceFactory, deps: [LoggerService] } */
+
     ],
   bootstrap: [AppComponent]
 })

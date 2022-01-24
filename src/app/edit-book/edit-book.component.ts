@@ -8,7 +8,7 @@ import {LoggerService} from '../core/logger.service';
 @Component({
   selector: 'app-edit-book',
   templateUrl: './edit-book.component.html',
-  styles: []
+  styles: [],
 })
 export class EditBookComponent implements OnInit {
 
