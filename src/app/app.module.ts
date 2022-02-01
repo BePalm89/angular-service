@@ -13,6 +13,7 @@ import { LoggerService } from './core/logger.service';
 import {DataService} from './core/data.service';
 import {PlainLoggerService} from './core/plain-logger.service';
 import {dataServiceFactory} from './core/data.service.factory';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,20 +27,21 @@ import {dataServiceFactory} from './core/data.service.factory';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers:
-      [ LoggerService, DataService
-      /*PlainLoggerService,
-      { provide: LoggerService, useClass: PlainLoggerService},
-      { provide: LoggerService, useExisting: PlainLoggerService},
-      {provide: LoggerService, useValue: {
-          log: (message: string) => console.log(`MESSAGE ${message}`),
-            error: (message: string) => console.log(`PROBLEM ${message}`)
-          }},
-        {provide: DataService, useFactory: dataServiceFactory, deps: [LoggerService] } */
+  providers: []
+/*[ LoggerService, DataService
+PlainLoggerService,
+{ provide: LoggerService, useClass: PlainLoggerService},
+{ provide: LoggerService, useExisting: PlainLoggerService},
+{provide: LoggerService, useValue: {
+    log: (message: string) => console.log(`MESSAGE ${message}`),
+      error: (message: string) => console.log(`PROBLEM ${message}`)
+    }},
+  {provide: DataService, useFactory: dataServiceFactory, deps: [LoggerService] }
 
-    ],
+    ]*/,
   bootstrap: [AppComponent]
 })
 export class AppModule { }
