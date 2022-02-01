@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, VERSION, Version} from '@angular/core';
 
 import { Book } from 'app/models/book';
 import { Reader } from 'app/models/reader';
@@ -6,6 +6,7 @@ import {DataService} from '../core/data.service';
 import {allBooks} from '../data';
 import {LoggerService} from '../core/logger.service';
 import {BookTrackerError} from '../models/bookTrackerError';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,7 +19,7 @@ export class DashboardComponent implements OnInit {
   allReaders: Reader[];
   mostPopularBook: Book;
 
-  constructor(private dataService: DataService, private loggersService: LoggerService) {
+  constructor(private dataService: DataService, private loggersService: LoggerService, private title: Title) {
     this.loggersService.log('Creating the dashboard!')
   }
 
@@ -38,8 +39,11 @@ export class DashboardComponent implements OnInit {
             },
             (err: string) => this.loggersService.error(`The promise was rejected: ${err}`)
         ).catch((error: Error) => this.loggersService.error(error.message)) */
-    this.getAuthorRecommendationAsync(1)
+    this.getAuthorRecommendationAsync(1).catch(err => this.loggersService.error(err));
+    this.title.setTitle(`Book Tracker ${VERSION.full}`)
     this.loggersService.log('Done with dashboard initialization.')
+
+    throw new Error('Ugly technical error!')
   }
 
   deleteBook(bookID: number): void {
@@ -51,12 +55,14 @@ export class DashboardComponent implements OnInit {
   }
 
   private async getAuthorRecommendationAsync(readerID: number): Promise<void> {
-    try {
+    const author: string = await this.dataService.getAuthorRecommendation(readerID);
+    this.loggersService.log(author)
+    /*try {
       const author: string = await this.dataService.getAuthorRecommendation(readerID);
       this.loggersService.log(author)
     } catch (error) {
       this.loggersService.error(error)
-    }
+    } */
   }
 
 }
